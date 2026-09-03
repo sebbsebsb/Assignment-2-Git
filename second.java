@@ -34,6 +34,7 @@ public class second {
             second = third;
 
         }
+        //added this comment
         if(D == 2){
             third = second +first;
         }
