@@ -1,0 +1,15 @@
+1. What did you improve?
+
+I simply added a text prompt to input the required score, so it wouldn't just blankly wait for input. 
+
+
+2. Why did you create a branch for this work?
+
+It was the assignment requirement. But later I started working on another idea that changed the codebase entirely, 
+and that time making a branch was extremely important as I didn't want to delete the working version and replace 
+it with my incomplete and untested code.
+
+
+3. What happened when you merged the branch into main?
+
+No issues, it just took the changes I made in the branch and put them in main.

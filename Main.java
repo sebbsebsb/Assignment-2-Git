@@ -1,46 +1,16 @@
-import java.util.Scanner;
 
 public class Main {
-    int I;
-    float R;
-    int D;
+    
 
     public static void main(String[] args) {
         
-        compute();
+        Compute program = new Compute();
+        
+        program.compute();
         
     }
     
-    public void compute() {
-        Scanner scanner = new Scanner(System.in);
-        
-        System.out.print("Input required score: ");
-        int reqScore = scanner.nextInt();
-        
-        System.out.print("Enter how many games: ");
-        D = scanner.nextInt();
-        float[] score = new float[D];
-        System.out.print("Enter rate of increase: ");
-        R = scanner.nextFloat();
-        System.out.print("Enter score for first game: ");
-        I = scanner.nextInt();
-        
-        score[0] = I;
-        
-        for (int i = 1; i < D; i++) {
-            score[i]=score[i-1]*R;
-        }
-        
-        if (score[D-1] < reqScore) {
-            System.out.println("NOT QUALIFIED");
-        } else {
-            System.out.println("QUALIFIED");
-        }
-        
-        System.out.println("Final score: " + score[D-1]);
-        
-        scanner.close();
-    }
+    
 
 
 }
