@@ -1,3 +1,1 @@
-# Git practice
-This project includes input validation.
-The program checks input.
+The program checks and validates user input.
