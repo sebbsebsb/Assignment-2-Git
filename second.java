@@ -6,6 +6,7 @@ public class second {
     int D;
     float third = 0;
     Scanner scanner = new Scanner(System.in);
+    float[] score = new float[10];
 
     public second() {
         ask();
