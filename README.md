@@ -3,3 +3,4 @@ This program takes inputs for first test score, number of iterations, and requir
 BUGS/PROBLEMS:
 - It can only handle 3 iterations.
 - Some weirdness with the for loop, score array needs to be implemented.
+
