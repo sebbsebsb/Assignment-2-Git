@@ -4,29 +4,19 @@ public class Main {
     int I;
     float R;
     int D;
-    Scanner scanner = new Scanner(System.in);
 
-    public void main(String[] args) {
-        invokingMethod();
+    public static void main(String[] args) {
+        
+        compute();
+        
     }
-    public void invokingMethod() {
+    
+    public void compute() {
+        Scanner scanner = new Scanner(System.in);
         
         System.out.print("Input required score: ");
         int reqScore = scanner.nextInt();
-        second secondClass = new compute();
-        // if(secondClass.getter() > reqScore) {
-        //     System.out.println("QUALIFIED");
-        // }
-        // else {
-        //     System.out.println("NOT QUALIFIED");
-        // }
-        scanner.close();
-    }
-    
-    
-    
-    
-    public float compute() {
+        
         System.out.print("Enter how many games: ");
         D = scanner.nextInt();
         float[] score = new float[D];
@@ -40,7 +30,16 @@ public class Main {
         for (int i = 1; i < D; i++) {
             score[i]=score[i-1]*R;
         }
-        return score[D-1];
+        
+        if (score[D-1] < reqScore) {
+            System.out.println("NOT QUALIFIED");
+        } else {
+            System.out.println("QUALIFIED");
+        }
+        
+        System.out.println("Final score: " + score[D-1]);
+        
+        scanner.close();
     }
 
 
