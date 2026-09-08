@@ -13,7 +13,12 @@ public class Compute{
         
         System.out.print("Enter how many games: ");
         D = scanner.nextInt();
-        float[] score = new float[D];
+        if (D < 4) {
+            D = 4;
+        } else if (D > 10) {
+            D = 10;
+        }
+        float[] score = new float[D + 1];
         System.out.print("Enter rate of increase: ");
         R = scanner.nextFloat();
         System.out.print("Enter score for first game: ");
@@ -21,12 +26,12 @@ public class Compute{
         
         score[0] = I;
         
-        for (int i = 1; i < D; i++) {
+        for (int i = 1; i < D+1; i++) {
             score[i]=score[i-1]*R;
             System.out.println("Iteration " + i + ": " + score[i]);
         }
         
-        if (score[D-1] < reqScore) {
+        if (score[4] < reqScore) {
             System.out.println("NOT QUALIFIED");
         } else {
             System.out.println("QUALIFIED");
