@@ -5,8 +5,11 @@ public class Compute{
     int I;
     float R;
     int D;
-    
+
     public void compute() {
+        ArrayList<String[]> loadedTeams = readCSV(); // Reads the CSV into this variable
+        ArrayList<Integer> scoreStatus = new ArrayList<Integer>; // Each team will have a scoreStatus at the same idx
+
         Scanner scan = new Scanner(System.in);
         
         System.out.print("Input required score: ");
@@ -22,6 +25,13 @@ public class Compute{
         float[] score = new float[D + 1];
         System.out.print("Enter rate of increase: ");
         R = scan.nextFloat();
+
+        for(int i = 0; i < loadedTeams.size(); i++)
+        {
+            // Adds array of cumulative score and pass status for each team
+            scoreStatus.add(calcScorePass(loadedTeams.get(i)[2], loadedTeams.get(i)[3], R, reqScore)); // Needs testing
+        }
+
         System.out.print("Enter score for first game: ");
         I = scan.nextInt();
         
@@ -49,7 +59,7 @@ public class Compute{
          * This method will read the CSV file and output an ArrayList containing an Array
          * of String of its elements. The CSV will be read via Scanner
          *
-         * Referenced from Baeldung
+         * Referenced from Baeldung (https://www.baeldung.com/java-csv-file-array)
          */
         ArrayList<String[]> teams = new ArrayList<String[]>();
         Scanner readCSV = new Scanner(new File("hackathon_teams.csv"));
@@ -57,15 +67,53 @@ public class Compute{
         {
             Scanner rowScan = new Scaner(line);
             String[] stats = new String[4];
+
+            rowScan.next(); // Skips the first line which has the CSV format
             for(i = 0; i < 4; i++)
             {
-                rowScan.useDelimiter(COMMA_DELIMITER);
+                rowScan.useDelimiter(",");
                 stats[i] = rowScan.next();
             }
             teams.add(stats);
         }
+        readCSV.close();
 
         return teams;
+    }
+
+    static float[] calcScorePass(float initScore, float growth, int rounds, int qualiCutoff)
+    {
+        /*
+         * This method will take some values read from the CSV and number of rounds
+         * and will calculate what the final cumulative score is, as well as whether
+         * the team has qualified or not
+         */
+        float[] scorePass = new float[2];
+
+        float qualiScore = 0;
+
+        for(int i = 0; i < rounds; i++) // Calculates cumulative score
+        {
+            initScore *= growth;
+
+            if(i == 4) // This shit so ass if someone has a better solution please implement it :sob:
+            {
+                qualiScore = initScore;
+            }
+        }
+
+        scorePass[0] = initScore;
+
+        if(qualiScore < qualiCutoff) // Determines qualification
+        {
+            scorePass[1] = 0;
+        }
+        else
+        {
+            scorePass[1] = 1;
+        }
+
+        return scorePass;
     }
     
 }
