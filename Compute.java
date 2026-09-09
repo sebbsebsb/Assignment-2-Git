@@ -7,8 +7,7 @@ public class Compute{
     int D;
 
     public void compute() {
-        ArrayList<String[]> loadedTeams = new ArrayList<String[]>(); // Reads the CSV into this variable
-        loadedTeams = readCSV();
+        ArrayList<String[]> loadedTeams = readCSV(); // Reads the CSV into this variable
         ArrayList<Integer> scoreStatus = new ArrayList<Integer>(); // Each team will have a scoreStatus at the same idx
 
         Scanner scan = new Scanner(System.in);
