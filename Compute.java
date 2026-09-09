@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Compute{
     int I;
@@ -6,13 +7,13 @@ public class Compute{
     int D;
     
     public void compute() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
         
         System.out.print("Input required score: ");
-        int reqScore = scanner.nextInt();
+        int reqScore = scan.nextInt();
         
         System.out.print("Enter how many games: ");
-        D = scanner.nextInt();
+        D = scan.nextInt();
         if (D < 4) {
             D = 4;
         } else if (D > 10) {
@@ -20,9 +21,9 @@ public class Compute{
         }
         float[] score = new float[D + 1];
         System.out.print("Enter rate of increase: ");
-        R = scanner.nextFloat();
+        R = scan.nextFloat();
         System.out.print("Enter score for first game: ");
-        I = scanner.nextInt();
+        I = scan.nextInt();
         
         score[0] = I;
         
@@ -39,7 +40,32 @@ public class Compute{
         
         System.out.println("Final score: " + score[D-1]);
         
-        scanner.close();
+        scan.close();
+    }
+
+    static ArrayList<String[]> readCSV()
+    {
+        /*
+         * This method will read the CSV file and output an ArrayList containing an Array
+         * of String of its elements. The CSV will be read via Scanner
+         *
+         * Referenced from Baeldung
+         */
+        ArrayList<String[]> teams = new ArrayList<String[]>();
+        Scanner readCSV = new Scanner(new File("hackathon_teams.csv"));
+        while(readCSV.hasNextLine())
+        {
+            Scanner rowScan = new Scaner(line);
+            String[] stats = new String[4];
+            for(i = 0; i < 4; i++)
+            {
+                rowScan.useDelimiter(COMMA_DELIMITER);
+                stats[i] = rowScan.next();
+            }
+            teams.add(stats);
+        }
+
+        return teams;
     }
     
 }
