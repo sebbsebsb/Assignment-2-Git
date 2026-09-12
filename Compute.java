@@ -15,10 +15,10 @@ public class Compute{
         ArrayList<float[]> scoreStatus = new ArrayList<>(); // Each team will have a scoreStatus at the same idx
 
         Scanner scan = new Scanner(System.in);
-        
+
         System.out.print("Input required score: ");
         int reqScore = scan.nextInt();
-        
+
         System.out.print("Enter how many games: ");
         D = scan.nextInt();
         if (D < 4) {
@@ -35,37 +35,42 @@ public class Compute{
 //        }
 //        System.out.println(Arrays.toString(loadedTeams.get(0)));
 
-         for (int i = 1; i < loadedTeams.size(); i++)
-         // loadedTeams is the arrayList
-         {
-             // for each loop, team is one row (one team), an array
-             String[] team = loadedTeams.get(i);
+        for (int i = 1; i < loadedTeams.size(); ++i)
+        // loadedTeams is the arrayList
+        // this loops through each team once
+        {
+            // for each loop, team is one row (one team), an array
+            String[] team = loadedTeams.get(i);
 
-             float initScore = Float.parseFloat(team[2]);
-             float growth = Float.parseFloat(team[3]);
+            float initScore = Float.parseFloat(team[2]);
+            float growth = Float.parseFloat(team[3]);
 
-             // Adds array of cumulative score and pass status for each team
-             scoreStatus.add(calcScorePass(initScore, growth, D, reqScore)); // Needs testing
-         }
+            // Adds array of cumulative score and pass status for each team
+            scoreStatus.add(calcScorePass(initScore, growth, D, reqScore)); // Needs testing
 
+//          System.out.println(team[0] + " " + team[1] + " " + team[2] + " " + team[3]);
+
+        }
+
+        displayTeams(loadedTeams, loadedTeams.size(), scoreStatus);
 
         // System.out.print("Enter score for first game: ");
         // I = scan.nextInt();
         // score[0] = I;
-        
+
         // for (int i = 1; i < D+1; i++) {
         //     score[i]=score[i-1]*R;
         //     System.out.println("Iteration " + i + ": " + score[i]);
         // }
-        
-        if (score[4] < reqScore) {
-            System.out.println("NOT QUALIFIED");
-        } else {
-            System.out.println("QUALIFIED");
-        }
-        
-        System.out.println("Final score: " + score[D-1]);
-        
+//
+//        if (score[4] < reqScore) {
+//            System.out.println("NOT QUALIFIED");
+//        } else {
+//            System.out.println("QUALIFIED");
+//        }
+
+//        System.out.println("Final score: " + score[D-1]);
+
         scan.close();
     }
 
@@ -127,5 +132,12 @@ public class Compute{
 
         return scorePass;
     }
-    
+
+
+    static void displayTeams(ArrayList<String[]> loadedTeams, int numTeams, ArrayList<float[]> scoreStatus)
+    {
+        System.out.println("Team: " + loadedTeams.get(1)[0] + "  |  score: " + scoreStatus.get(1)[0]);
+    }
+
 }
+
