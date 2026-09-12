@@ -1,14 +1,16 @@
+import java.io.File;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Compute{
     int I;
-    float R;
+    float R = (float) 0.0;
     int D;
+    File teamsCSV = new File("hackathon.teams.csv");
 
     public void compute() {
-        ArrayList<String[]> loadedTeams = readCSV(); // Reads the CSV into this variable
-        ArrayList<Integer> scoreStatus = new ArrayList<Integer>(); // Each team will have a scoreStatus at the same idx
+        ArrayList<String[]> loadedTeams = readCSV(teamsCSV); // Reads the CSV into this variable
+        ArrayList<Integer> scoreStatus = new ArrayList<>(); // Each team will have a scoreStatus at the same idx
 
         Scanner scan = new Scanner(System.in);
         
@@ -29,7 +31,8 @@ public class Compute{
         for(int i = 0; i < loadedTeams.size(); i++)
         {
             // Adds array of cumulative score and pass status for each team
-            scoreStatus.add(calcScorePass(loadedTeams.get(i)[2], loadedTeams.get(i)[3], R, reqScore)); // Needs testing
+            scoreStatus.add(calcScorePass(Float.parseFloat(loadedTeams.get(i)[2]),
+                    Float.parseFloat(loadedTeams.get(i)[3]), R, reqScore)); // Needs testing
         }
 
         System.out.print("Enter score for first game: ");
@@ -53,7 +56,7 @@ public class Compute{
         scan.close();
     }
 
-    static ArrayList<String[]> readCSV()
+    static ArrayList<String[]> readCSV(File teamsCSV)
     {
         /*
          * This method will read the CSV file and output an ArrayList containing an Array
@@ -61,22 +64,33 @@ public class Compute{
          *
          * Referenced from Baeldung (https://www.baeldung.com/java-csv-file-array)
          */
-        ArrayList<String[]> teams = new ArrayList<String[]>();
-        Scanner readCSV = new Scanner(new File("hackathon_teams.csv"));
-        while(readCSV.hasNextLine())
+        ArrayList<String[]> teams = new ArrayList<>();
+        /*
+        try (Scanner readCSV = new Scanner(File))
         {
-            Scanner rowScan = new Scaner(line);
-            String[] stats = new String[4];
-
-            rowScan.next(); // Skips the first line which has the CSV format
-            for(i = 0; i < 4; i++)
+            while(readCSV.hasNextLine())
             {
-                rowScan.useDelimiter(",");
-                stats[i] = rowScan.next();
+                Scanner rowScan = new Scanner(file);
+                String[] stats = new String[4];
+
+                rowScan.next(); // Skips the first line which has the CSV format
+                for(i = 0; i < 4; i++)
+                {
+                    rowScan.useDelimiter(",");
+                    stats[i] = rowScan.next();
+                }
+                teams.add(stats);
             }
-            teams.add(stats);
         }
-        readCSV.close();
+        */
+        try (Scanner readCSV = new Scanner(new File("hackathon_teams.csv")))
+        {
+            while (readCSV.hasNextLine())
+            {
+                String[] team = readCSV.nextLine().split(",");
+                teams.add(team);
+            }
+        }
 
         return teams;
     }
