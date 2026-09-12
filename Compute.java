@@ -28,11 +28,11 @@ public class Compute{
         System.out.print("Enter rate of increase: ");
         R = scan.nextFloat();
 
-        for(int i = 0; i < loadedTeams.size(); i++)
+        for (String[] team : loadedTeams)
         {
             // Adds array of cumulative score and pass status for each team
-            scoreStatus.add(calcScorePass(Float.parseFloat(loadedTeams.get(i)[2]),
-                    Float.parseFloat(loadedTeams.get(i)[3]), R, reqScore)); // Needs testing
+            scoreStatus.add(calcScorePass(Float.parseFloat(team[2]),
+                    Float.parseFloat(team[3]), R, reqScore)); // Needs testing
         }
 
         System.out.print("Enter score for first game: ");
