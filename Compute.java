@@ -11,7 +11,7 @@ public class Compute{
     File teamsCSV = new File("hackathon_teams.csv");
 
     public void compute() {
-        ArrayList<String[]> loadedTeams = readCSV(teamsCSV); // Reads the CSV into this variable
+        ArrayList<String[]> loadedTeams = readCSV(teamsCSV); // Reads the CSV into this variable (all in string format)
         ArrayList<float[]> scoreStatus = new ArrayList<>(); // Each team will have a scoreStatus at the same idx
 
         Scanner scan = new Scanner(System.in);
@@ -52,7 +52,8 @@ public class Compute{
 
         }
 
-        displayTeams(loadedTeams, loadedTeams.size(), scoreStatus);
+        ArrayList<TeamResult> finalResults = fillFinalResults(loadedTeams, scoreStatus); //final results here
+        displayTeams(finalResults);
 
         // System.out.print("Enter score for first game: ");
         // I = scan.nextInt();
@@ -113,7 +114,8 @@ public class Compute{
         {
             initScore *= growth;
 
-            if(i == 4) // This shit so ass if someone has a better solution please implement it :sob:
+            if(i == 3) // This shit so ass if someone has a better solution please implement it :sob:
+                // changed i to 3 since it starts at round 0
             {
                 qualiScore = initScore;
             }
@@ -121,6 +123,7 @@ public class Compute{
 
         scorePass[0] = initScore;
 
+//        System.out.println("qualiscore: " + qualiScore + "\tinitScore: " + initScore + "\tqualiCutoff: " + qualiCutoff + "\tgrowth: "  + growth);
         if(qualiScore < qualiCutoff) // Determines qualification
         {
             scorePass[1] = 0;
@@ -134,9 +137,37 @@ public class Compute{
     }
 
 
-    static void displayTeams(ArrayList<String[]> loadedTeams, int numTeams, ArrayList<float[]> scoreStatus)
+    static void displayTeams(ArrayList<TeamResult> finalResults) {
+        int numTeams = finalResults.size();
+        // get order from best to worst
+        int[] scoreOrder = new int[numTeams];
+        for (int i = 1; i < numTeams; ++i) {
+            scoreOrder[i] = i;
+        }
+
+        for (int i = 1; i < numTeams; ++i)
+        {
+            System.out.print("Team: " + finalResults.get(i).name + "\t|\tScore: " + finalResults.get(i).score);
+            if (finalResults.get(i).qualified) {
+                System.out.println("\tQUALIFIED");
+            } else {
+                System.out.println("\tNOT QUALIFIED");
+            }
+        }
+    }
+
+    static ArrayList<TeamResult> fillFinalResults (ArrayList<String[]> loadedTeams,  ArrayList<float[]> scoreStatus)
     {
-        System.out.println("Team: " + loadedTeams.get(1)[0] + "  |  score: " + scoreStatus.get(1)[0]);
+        ArrayList<TeamResult> finalResults = new ArrayList<>();
+
+        for (int i = 0; i < loadedTeams.size() - 1; ++i)
+        // adds the names for every team
+        {
+            boolean passed = (scoreStatus.get(i)[1] == 1.0f);
+            finalResults.add(new TeamResult(loadedTeams.get(i+1)[0], scoreStatus.get(i)[0], passed));
+        }
+
+        return finalResults;
     }
 
 }
