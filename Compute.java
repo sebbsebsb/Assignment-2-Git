@@ -1,14 +1,18 @@
-import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Arrays;
 
 public class Compute{
-    int I;
-    float R;
-    int D;
+    // int I; // initial score
+    // float R = 0; // Rate of increase
+    int D; // # of rounds/iterations
+    File teamsCSV = new File("hackathon_teams.csv");
 
     public void compute() {
-        ArrayList<String[]> loadedTeams = readCSV(); // Reads the CSV into this variable
-        ArrayList<Integer> scoreStatus = new ArrayList<Integer>(); // Each team will have a scoreStatus at the same idx
+        ArrayList<String[]> loadedTeams = readCSV(teamsCSV); // Reads the CSV into this variable
+        ArrayList<float[]> scoreStatus = new ArrayList<>(); // Each team will have a scoreStatus at the same idx
 
         Scanner scan = new Scanner(System.in);
         
@@ -23,24 +27,36 @@ public class Compute{
             D = 10;
         }
         float[] score = new float[D + 1];
-        System.out.print("Enter rate of increase: ");
-        R = scan.nextFloat();
+        // System.out.print("Enter rate of increase: ");
+        // R = scan.nextFloat();
 
-        for(int i = 0; i < loadedTeams.size(); i++)
-        {
-            // Adds array of cumulative score and pass status for each team
-            scoreStatus.add(calcScorePass(loadedTeams.get(i)[2], loadedTeams.get(i)[3], R, reqScore)); // Needs testing
-        }
+//        for (String[] team : loadedTeams) {
+//            System.out.println(loadedTeams);
+//        }
+//        System.out.println(Arrays.toString(loadedTeams.get(0)));
 
-        System.out.print("Enter score for first game: ");
-        I = scan.nextInt();
+         for (int i = 1; i < loadedTeams.size(); i++)
+         // loadedTeams is the arrayList
+         {
+             // for each loop, team is one row (one team), an array
+             String[] team = loadedTeams.get(i);
+
+             float initScore = Float.parseFloat(team[2]);
+             float growth = Float.parseFloat(team[3]);
+
+             // Adds array of cumulative score and pass status for each team
+             scoreStatus.add(calcScorePass(initScore, growth, D, reqScore)); // Needs testing
+         }
+
+
+        // System.out.print("Enter score for first game: ");
+        // I = scan.nextInt();
+        // score[0] = I;
         
-        score[0] = I;
-        
-        for (int i = 1; i < D+1; i++) {
-            score[i]=score[i-1]*R;
-            System.out.println("Iteration " + i + ": " + score[i]);
-        }
+        // for (int i = 1; i < D+1; i++) {
+        //     score[i]=score[i-1]*R;
+        //     System.out.println("Iteration " + i + ": " + score[i]);
+        // }
         
         if (score[4] < reqScore) {
             System.out.println("NOT QUALIFIED");
@@ -53,7 +69,7 @@ public class Compute{
         scan.close();
     }
 
-    static ArrayList<String[]> readCSV()
+    static ArrayList<String[]> readCSV(File teamsCSV)
     {
         /*
          * This method will read the CSV file and output an ArrayList containing an Array
@@ -61,22 +77,18 @@ public class Compute{
          *
          * Referenced from Baeldung (https://www.baeldung.com/java-csv-file-array)
          */
-        ArrayList<String[]> teams = new ArrayList<String[]>();
-        Scanner readCSV = new Scanner(new File("hackathon_teams.csv"));
-        while(readCSV.hasNextLine())
+        ArrayList<String[]> teams = new ArrayList<>();
+        try (Scanner readCSV = new Scanner(teamsCSV)) // changed to use the above referenced file path
         {
-            Scanner rowScan = new Scaner(line);
-            String[] stats = new String[4];
-
-            rowScan.next(); // Skips the first line which has the CSV format
-            for(i = 0; i < 4; i++)
+            while (readCSV.hasNextLine())
             {
-                rowScan.useDelimiter(",");
-                stats[i] = rowScan.next();
+                String[] team = readCSV.nextLine().split(",");
+                teams.add(team);
             }
-            teams.add(stats);
         }
-        readCSV.close();
+        catch (FileNotFoundException e) {
+            System.err.println("Error: The requested file could not be found.");
+        }
 
         return teams;
     }
