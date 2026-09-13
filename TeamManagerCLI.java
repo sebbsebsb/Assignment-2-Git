@@ -9,7 +9,7 @@ public class TeamManagerCLI
     public static void main(String[] args) throws FileNotFoundException, IOException
     {
         File csvFile = new File("hackathon_teams.csv");
-        TeamDataStore store = new TeamDataStore(csvFile);
+        TeamData store = new TeamData(csvFile);
         Scanner scan = new Scanner(System.in);
 
         boolean run = true;
@@ -54,7 +54,7 @@ public class TeamManagerCLI
     }
 
     // print the list of teams from the CVS 
-    private static void view(TeamDataStore store)
+    private static void view(TeamData store)
     {
         ArrayList<TeamRecord> records = store.getRecords();
         if (records.isEmpty())
@@ -72,7 +72,7 @@ public class TeamManagerCLI
     }
 
     // trim whitespace with trim() 
-    private static void addTeam(TeamDataStore store, Scanner scan)
+    private static void addTeam(TeamData store, Scanner scan)
     {
         System.out.print("University: ");
         String university = scan.nextLine().trim();
@@ -99,7 +99,7 @@ public class TeamManagerCLI
 
     // find the team by name, then update the fields with new values, 
     // or keep the old values if the user leaves them blank 
-    private static void updateTeam(TeamDataStore store, Scanner scan)
+    private static void updateTeam(TeamData store, Scanner scan)
     {
         System.out.print("Team name to update: ");
         String target = scan.nextLine().trim();
