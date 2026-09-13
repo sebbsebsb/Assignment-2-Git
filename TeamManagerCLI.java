@@ -81,6 +81,7 @@ public class TeamManagerCLI
         String teamName = scan.nextLine().trim();
 
         // read as float 
+        // need to edit so that it can handle invalid input (strings instead of int) without crashing
         System.out.print("Initial score: ");
         float initialScore = Float.parseFloat(scan.nextLine().trim());
 
