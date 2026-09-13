@@ -28,7 +28,7 @@ public class ComputeGUI extends JFrame {
 //        outputArea.setEditable(false);
 
         // jtable for output list
-        String[] columns = {"Team Name", "Final Score", "Status"};
+        String[] columns = {"Rank", "University", "Team Name", "Final Score", "Status"};
         tableModel = new DefaultTableModel(columns, 0);
         resultTable = new JTable(tableModel);
 
@@ -82,10 +82,14 @@ public class ComputeGUI extends JFrame {
             ArrayList<TeamResult> results = program.compute();
             tableModel.setRowCount(0);
 
+            int i = 0;
+            float lastScore = 0;
             for (TeamResult team : results) {
+                if (lastScore != team.score) ++i; // i know this looks weird its just to make ties have the same rank
+                lastScore = team.score;
                 // populate the table
                 String status = team.qualified ? "QUALIFIED" : "NOT QUALIFIED";
-                tableModel.addRow(new Object[]{team.name, String.format("%.2f", team.score), status});
+                tableModel.addRow(new Object[]{i, team.uniName, team.teamName, String.format("%.2f", team.score), status});
             }
 
 //            outputArea.setText(fakeOutput.toString());

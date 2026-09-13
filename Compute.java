@@ -54,7 +54,9 @@ public class Compute{
         }
 
         ArrayList<TeamResult> finalResults = fillFinalResults(loadedTeams, scoreStatus); //final results here
-        displayTeams(finalResults);
+        Collections.sort(finalResults, (TeamResult2, TeamResult1) -> Float.compare(TeamResult1.score, TeamResult2.score));
+
+//        displayTeams(finalResults);
 
         // System.out.print("Enter score for first game: ");
         // I = scan.nextInt();
@@ -142,12 +144,12 @@ public class Compute{
     static void displayTeams(ArrayList<TeamResult> finalResults) {
         int numTeams = finalResults.size();
         // get order from best to worst
-        Collections.sort(finalResults, (TeamResult2, TeamResult1) -> Float.compare(TeamResult1.score, TeamResult2.score));
+//        Collections.sort(finalResults, (TeamResult2, TeamResult1) -> Float.compare(TeamResult1.score, TeamResult2.score));
 
 
         for (int i = 0; i < numTeams; ++i)
         {
-            System.out.print("Team: " + finalResults.get(i).name + "\t|\t");
+            System.out.print("Team: " + finalResults.get(i).uniName + "\t|\t");
             System.out.printf("Score: %.2f", finalResults.get(i).score);
             if (finalResults.get(i).qualified) {
                 System.out.println("\tQUALIFIED");
@@ -165,7 +167,7 @@ public class Compute{
         // adds the names for every team
         {
             boolean passed = (scoreStatus.get(i)[1] == 1.0f);
-            finalResults.add(new TeamResult(loadedTeams.get(i+1)[0], scoreStatus.get(i)[0], passed));
+            finalResults.add(new TeamResult(loadedTeams.get(i+1)[0], loadedTeams.get(i+1)[1], scoreStatus.get(i)[0], passed));
         }
 
         return finalResults;
