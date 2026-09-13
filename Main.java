@@ -3,9 +3,8 @@ public class Main {
 
     public static void main(String[] args) {
         
-        Compute program = new Compute();
-        
-        program.compute();
+        ComputeGUI gui = new ComputeGUI();
+        gui.setVisible(true);
         
     }
 }
