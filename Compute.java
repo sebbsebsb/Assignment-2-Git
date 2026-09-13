@@ -146,7 +146,8 @@ public class Compute{
 
         for (int i = 1; i < numTeams; ++i)
         {
-            System.out.print("Team: " + finalResults.get(i).name + "\t|\tScore: " + finalResults.get(i).score);
+            System.out.print("Team: " + finalResults.get(i).name + "\t|\t");
+            System.out.printf("Score: %.2f", finalResults.get(i).score);
             if (finalResults.get(i).qualified) {
                 System.out.println("\tQUALIFIED");
             } else {
