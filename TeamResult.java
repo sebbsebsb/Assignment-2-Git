@@ -1,10 +1,12 @@
 public class TeamResult {
-    String name;
+    String uniName;
+    String teamName;
     float score;
     boolean qualified;
 
-    public TeamResult (String name, float score, boolean qualified) {
-        this.name = name;
+    public TeamResult (String uniName, String teamName, float score, boolean qualified) {
+        this.uniName = uniName;
+        this.teamName = teamName;
         this.score = score;
         this.qualified = qualified;
     }
