@@ -11,7 +11,7 @@ public class Compute{
     int D; // # of rounds/iterations
     File teamsCSV = new File("hackathon_teams.csv");
 
-    public void compute() {
+    public ArrayList<TeamResult> compute() {
         ArrayList<String[]> loadedTeams = readCSV(teamsCSV); // Reads the CSV into this variable (all in string format)
         ArrayList<float[]> scoreStatus = new ArrayList<>(); // Each team will have a scoreStatus at the same idx
 
@@ -74,6 +74,7 @@ public class Compute{
 //        System.out.println("Final score: " + score[D-1]);
 
         scan.close();
+        return finalResults;
     }
 
     static ArrayList<String[]> readCSV(File teamsCSV)

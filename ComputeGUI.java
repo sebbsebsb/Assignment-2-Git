@@ -1,6 +1,8 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.*;
+import java.util.ArrayList;
 
 public class ComputeGUI extends JFrame {
 
@@ -8,7 +10,9 @@ public class ComputeGUI extends JFrame {
     private JTextField gamesField;
 //    private JTextField rateField;
 //    private JTextField firstScoreField;
-    private JTextArea outputArea;
+//    private JTextArea outputArea;
+    private JTable resultTable;
+    private DefaultTableModel tableModel;
 
     public ComputeGUI() {
         setTitle("Compute GUI");
@@ -20,8 +24,13 @@ public class ComputeGUI extends JFrame {
         gamesField = new JTextField();
 //        rateField = new JTextField();
 //        firstScoreField = new JTextField();
-        outputArea = new JTextArea();
-        outputArea.setEditable(false);
+//        outputArea = new JTextArea();
+//        outputArea.setEditable(false);
+
+        // jtable for output list
+        String[] columns = {"Team Name", "Final Score", "Status"};
+        tableModel = new DefaultTableModel(columns, 0);
+        resultTable = new JTable(tableModel);
 
         JButton runButton = new JButton("Run Compute");
 
@@ -43,7 +52,8 @@ public class ComputeGUI extends JFrame {
         inputPanel.add(runButton);
 
         add(inputPanel, BorderLayout.NORTH);
-        add(new JScrollPane(outputArea), BorderLayout.CENTER);
+        // switched to jtable from terminal output
+        add(new JScrollPane(resultTable), BorderLayout.CENTER);
 
         runButton.addActionListener(e -> runCompute());
     }
@@ -61,21 +71,30 @@ public class ComputeGUI extends JFrame {
 
             ByteArrayInputStream fakeInput =
                 new ByteArrayInputStream(input.getBytes());
-
-            ByteArrayOutputStream fakeOutput =
-                new ByteArrayOutputStream();
-
+//
+//            ByteArrayOutputStream fakeOutput =
+//                new ByteArrayOutputStream();
+//
             System.setIn(fakeInput);
-            System.setOut(new PrintStream(fakeOutput));
+//            System.setOut(new PrintStream(fakeOutput));
 
             Compute program = new Compute();
-            program.compute();
+            ArrayList<TeamResult> results = program.compute();
+            tableModel.setRowCount(0);
 
-            outputArea.setText(fakeOutput.toString());
+            for (TeamResult team : results) {
+                // populate the table
+                String status = team.qualified ? "QUALIFIED" : "NOT QUALIFIED";
+                tableModel.addRow(new Object[]{team.name, String.format("%.2f", team.score), status});
+            }
+
+//            outputArea.setText(fakeOutput.toString());
 
         } catch (Exception ex) {
-            outputArea.setText("Error: " + ex.getMessage());
-
+//            resultTable.("Error: " + ex.getMessage());
+//            System.err.println("Error: " + ex.getMessage());
+            tableModel.setRowCount(0);
+            tableModel.addRow(new Object[]{"Error", ex.getMessage(), ""});
         } finally {
             System.setIn(originalIn);
             System.setOut(originalOut);
