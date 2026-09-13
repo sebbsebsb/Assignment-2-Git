@@ -11,16 +11,16 @@ public class Compute{
     int D; // # of rounds/iterations
     File teamsCSV = new File("hackathon_teams.csv");
 
-    public void compute() {
+    public ArrayList<TeamResult> compute() {
         ArrayList<String[]> loadedTeams = readCSV(teamsCSV); // Reads the CSV into this variable (all in string format)
         ArrayList<float[]> scoreStatus = new ArrayList<>(); // Each team will have a scoreStatus at the same idx
 
         Scanner scan = new Scanner(System.in);
 
-        System.out.print("Input required score: ");
-        int reqScore = scan.nextInt();
-
-        System.out.print("Enter how many games: ");
+//        System.out.print("Input required score: ");
+        float reqScore = scan.nextFloat();
+//
+//        System.out.print("Enter how many games: ");
         D = scan.nextInt();
         if (D < 4) {
             D = 4;
@@ -74,6 +74,7 @@ public class Compute{
 //        System.out.println("Final score: " + score[D-1]);
 
         scan.close();
+        return finalResults;
     }
 
     static ArrayList<String[]> readCSV(File teamsCSV)
@@ -100,7 +101,7 @@ public class Compute{
         return teams;
     }
 
-    static float[] calcScorePass(float initScore, float growth, int rounds, int qualiCutoff)
+    static float[] calcScorePass(float initScore, float growth, int rounds, float qualiCutoff)
     {
         /*
          * This method will take some values read from the CSV and number of rounds
@@ -144,7 +145,7 @@ public class Compute{
         Collections.sort(finalResults, (TeamResult2, TeamResult1) -> Float.compare(TeamResult1.score, TeamResult2.score));
 
 
-        for (int i = 1; i < numTeams; ++i)
+        for (int i = 0; i < numTeams; ++i)
         {
             System.out.print("Team: " + finalResults.get(i).name + "\t|\t");
             System.out.printf("Score: %.2f", finalResults.get(i).score);
