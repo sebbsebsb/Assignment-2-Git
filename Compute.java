@@ -17,10 +17,10 @@ public class Compute{
 
         Scanner scan = new Scanner(System.in);
 
-        System.out.print("Input required score: ");
-        int reqScore = scan.nextInt();
-
-        System.out.print("Enter how many games: ");
+//        System.out.print("Input required score: ");
+        float reqScore = scan.nextFloat();
+//
+//        System.out.print("Enter how many games: ");
         D = scan.nextInt();
         if (D < 4) {
             D = 4;
@@ -100,7 +100,7 @@ public class Compute{
         return teams;
     }
 
-    static float[] calcScorePass(float initScore, float growth, int rounds, int qualiCutoff)
+    static float[] calcScorePass(float initScore, float growth, int rounds, float qualiCutoff)
     {
         /*
          * This method will take some values read from the CSV and number of rounds

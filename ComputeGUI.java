@@ -6,8 +6,8 @@ public class ComputeGUI extends JFrame {
 
     private JTextField reqScoreField;
     private JTextField gamesField;
-    private JTextField rateField;
-    private JTextField firstScoreField;
+//    private JTextField rateField;
+//    private JTextField firstScoreField;
     private JTextArea outputArea;
 
     public ComputeGUI() {
@@ -18,8 +18,8 @@ public class ComputeGUI extends JFrame {
 
         reqScoreField = new JTextField();
         gamesField = new JTextField();
-        rateField = new JTextField();
-        firstScoreField = new JTextField();
+//        rateField = new JTextField();
+//        firstScoreField = new JTextField();
         outputArea = new JTextArea();
         outputArea.setEditable(false);
 
@@ -33,11 +33,11 @@ public class ComputeGUI extends JFrame {
         inputPanel.add(new JLabel("Number of games:"));
         inputPanel.add(gamesField);
 
-        inputPanel.add(new JLabel("Rate of increase:"));
-        inputPanel.add(rateField);
+//        inputPanel.add(new JLabel("Rate of increase:"));
+//        inputPanel.add(rateField);
 
-        inputPanel.add(new JLabel("First game score:"));
-        inputPanel.add(firstScoreField);
+//        inputPanel.add(new JLabel("First game score:"));
+//        inputPanel.add(firstScoreField);
 
         inputPanel.add(new JLabel(""));
         inputPanel.add(runButton);
@@ -55,9 +55,9 @@ public class ComputeGUI extends JFrame {
         try {
             String input =
                 reqScoreField.getText() + "\n" +
-                gamesField.getText() + "\n" +
-                rateField.getText() + "\n" +
-                firstScoreField.getText() + "\n";
+                gamesField.getText() + "\n";
+//                rateField.getText() + "\n" +
+//                firstScoreField.getText() + "\n";
 
             ByteArrayInputStream fakeInput =
                 new ByteArrayInputStream(input.getBytes());
