@@ -144,7 +144,7 @@ public class Compute{
         Collections.sort(finalResults, (TeamResult2, TeamResult1) -> Float.compare(TeamResult1.score, TeamResult2.score));
 
 
-        for (int i = 1; i < numTeams; ++i)
+        for (int i = 0; i < numTeams; ++i)
         {
             System.out.print("Team: " + finalResults.get(i).name + "\t|\t");
             System.out.printf("Score: %.2f", finalResults.get(i).score);
