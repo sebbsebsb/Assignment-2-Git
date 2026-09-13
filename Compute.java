@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 import java.util.Arrays;
 
@@ -140,10 +141,8 @@ public class Compute{
     static void displayTeams(ArrayList<TeamResult> finalResults) {
         int numTeams = finalResults.size();
         // get order from best to worst
-        int[] scoreOrder = new int[numTeams];
-        for (int i = 1; i < numTeams; ++i) {
-            scoreOrder[i] = i;
-        }
+        Collections.sort(finalResults, (TeamResult2, TeamResult1) -> Float.compare(TeamResult1.score, TeamResult2.score));
+
 
         for (int i = 1; i < numTeams; ++i)
         {
