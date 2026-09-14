@@ -19,8 +19,7 @@ public class TeamManagerCLI
             System.out.println("1. View teams");
             System.out.println("2. Add team");
             System.out.println("3. Update team");
-            System.out.println("4. Save changes");
-            System.out.println("5. Save and exit");
+            System.out.println("4. Save and exit");
             System.out.print("Choose an option: ");
 
             String choice = scan.nextLine().trim();
@@ -37,10 +36,6 @@ public class TeamManagerCLI
                     updateTeam(store, scan);
                     break;
                 case "4":
-                    store.save();
-                    System.out.println("Saved to hackathon_teams.csv.");
-                    break;
-                case "5":
                     store.save();
                     System.out.println("Saved. Exiting.");
                     run = false;
@@ -83,10 +78,43 @@ public class TeamManagerCLI
         // read as float 
         // need to edit so that it can handle invalid input (strings instead of int) without crashing
         System.out.print("Initial score: ");
-        float initialScore = Float.parseFloat(scan.nextLine().trim());
+        // float initialScore = Float.parseFloat(scan.nextLine().trim());
+
+        float initialScore = 0;
+        boolean validInput = false;
+        
+        while (!validInput)
+        {
+            try
+            {
+                initialScore = Float.parseFloat(scan.nextLine().trim());
+                validInput = true;
+            }
+
+            catch (NumberFormatException e)
+            {
+                System.out.print("Invalid input. Please enter a number: ");
+            }
+        }
 
         System.out.print("Growth rate: ");
-        float growthRate = Float.parseFloat(scan.nextLine().trim());
+        // float growthRate = Float.parseFloat(scan.nextLine().trim());
+
+        float growthRate = 0;
+        validInput = false;
+        while (!validInput)
+        {
+            try
+            {
+                growthRate = Float.parseFloat(scan.nextLine().trim());
+                validInput = true;
+            }
+
+            catch (NumberFormatException e)
+            {
+                System.out.print("Invalid input. Please enter a number: ");
+            }
+        }
 
         if (store.add(university, teamName, initialScore, growthRate))
         {
