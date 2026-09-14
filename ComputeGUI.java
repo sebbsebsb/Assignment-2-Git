@@ -14,6 +14,9 @@ public class ComputeGUI extends JFrame {
     private JTable resultTable;
     private DefaultTableModel tableModel;
 
+    final String qualifiedText = "QUALIFIED";
+    final String notQualifiedText = "NOT QUALIFIED";
+
     public ComputeGUI() {
         setTitle("Compute GUI");
         setSize(500, 400);
@@ -88,7 +91,7 @@ public class ComputeGUI extends JFrame {
                 if (lastScore != team.score) ++i; // i know this looks weird its just to make ties have the same rank
                 lastScore = team.score;
                 // populate the table
-                String status = team.qualified ? "QUALIFIED" : "NOT QUALIFIED";
+                String status = team.qualified ? qualifiedText : notQualifiedText;
                 tableModel.addRow(new Object[]{i, team.uniName, team.teamName, String.format("%.2f", team.score), status});
             }
 
