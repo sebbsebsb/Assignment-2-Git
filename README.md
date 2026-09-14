@@ -1,6 +1,6 @@
-Authors: Sebastian, Anastasia, (milk???), (Sato?) 
+Authors: Sebastian, Anastasia, Rem, Sato
 
-This program takes inputs for first test score, number of iterations, and required score to qualify. It then calculates the score of each iteration, and shows if you pass or fail by the last iteration. 
+This program takes inputs for the number of iterations and required score to qualify. It then calculates each team's score of the final iteration, and shows if they passed or failed by the fourth iteration. 
 
 Running Main.java creates a GUI where the user may input the desired required score and number of games. It then calculates the score and who qualified. 
 
